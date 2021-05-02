@@ -6,7 +6,7 @@ public class StringArrayUtils {
     /**
      * @param array array of String objects
      * @return first element of specified array
-     */ // TODO
+     */
     public static String getFirstElement(String[] array) {
         return array[0];
     }
@@ -26,7 +26,7 @@ public class StringArrayUtils {
     /**
      * @param array array of String objects
      * @return last element in specified array
-     */ // TODO
+     */
     public static String getLastElement(String[] array) {
         int lastIndex = array.length - 1;
         return array[lastIndex];
@@ -35,7 +35,7 @@ public class StringArrayUtils {
     /**
      * @param array array of String objects
      * @return second to last element in specified array
-     */ // TODO
+     */
     public static String getSecondToLastElement(String[] array) {
         int secondToLastIndex = array.length - 2;
         if (secondToLastIndex >= 0) {
@@ -49,7 +49,7 @@ public class StringArrayUtils {
      * @param array array of String objects
      * @param value value to check array for
      * @return true if the array contains the specified `value`
-     */ // TODO
+     */
     public static boolean contains(String[] array, String value) {
         Boolean isFound = false;
         for (int i = 0; i < array.length; i++) {
@@ -64,7 +64,7 @@ public class StringArrayUtils {
     /**
      * @param array of String objects
      * @return an array with identical contents in reverse order
-     */ // TODO
+     */
     public static String[] reverse(String[] array) {
         String[] reverse = new String[array.length];
         for (int i = array.length - 1, j = 0; i >= 0; i--, j++) {
@@ -76,7 +76,7 @@ public class StringArrayUtils {
     /**
      * @param array array of String objects
      * @return true if the order of the array is the same backwards and forwards
-     */ // TODO
+     */
     public static boolean isPalindromic(String[] array) {
         Boolean isPalindromic = true;
         int forwardIndex = 0, backwardIndex = array.length - 1;
@@ -94,7 +94,7 @@ public class StringArrayUtils {
     /**
      * @param array array of String objects
      * @return true if each letter in the alphabet has been used in the array
-     */ // TODO
+     */
     public static boolean isPangramic(String[] array) {
         Boolean isPangramic = false;
         Boolean[] letterFoundArray = new Boolean[26];
@@ -297,7 +297,7 @@ public class StringArrayUtils {
      * @param array array of String objects
      * @param value value to check array for
      * @return number of occurrences the specified `value` has occurred
-     */ // TODO
+     */
     public static int getNumberOfOccurrences(String[] array, String value) {
         int getNumberOfOccurrences = 0;
 
@@ -314,7 +314,7 @@ public class StringArrayUtils {
      * @param array         array of String objects
      * @param valueToRemove value to remove from array
      * @return array with identical contents excluding values of `value`
-     */ // TODO
+     */
     public static String[] removeValue(String[] array, String valueToRemove) {
         String[] removedValueArray = new String[array.length - 1];
         int currentStoringIndex = 0;
@@ -332,7 +332,7 @@ public class StringArrayUtils {
     /**
      * @param array array of chars
      * @return array of Strings with consecutive duplicates removes
-     */ // TODO
+     */
     public static String[] removeConsecutiveDuplicates(String[] array) {
         String lastString = "";
         String[] noConsecutiveDuplicates;
@@ -378,9 +378,50 @@ public class StringArrayUtils {
      * @param array array of chars
      * @return array of Strings with each consecutive duplicate occurrence
      *         concatenated as a single string in an array of Strings
-     */ // TODO
+     */
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        String[] packedConsecutiveDuplicates = new String[array.length];
+        String[] finalPackedConsecutiveDuplicates;
+        String lastCharRead = "";
+        String currentPackedDuplicates = "";
+        int numberOfValuesAfterPacking = 0;
+        int currentSavingIndex = 0;
+        Boolean firstPass = true;
+
+        for (int i = 0; i < array.length; i++) {
+            if (firstPass) {
+                lastCharRead = array[0];
+                currentPackedDuplicates = array[0];
+                i++;
+                firstPass = false;
+            }
+            if (array[i].equals(lastCharRead)) {
+                currentPackedDuplicates = currentPackedDuplicates + array[i];
+            } else {
+                numberOfValuesAfterPacking++;
+                packedConsecutiveDuplicates[currentSavingIndex] = currentPackedDuplicates;
+                currentSavingIndex++;
+                currentPackedDuplicates = array[i];
+                lastCharRead = array[i];
+            }
+            if (i == array.length - 1) {
+                if (array[i].equals(lastCharRead)) {
+                    packedConsecutiveDuplicates[currentSavingIndex] = currentPackedDuplicates;
+                    numberOfValuesAfterPacking++;
+                } else {
+                    packedConsecutiveDuplicates[currentSavingIndex] = array[i];
+                    numberOfValuesAfterPacking++;
+                }
+            }
+        }
+
+        finalPackedConsecutiveDuplicates = new String[numberOfValuesAfterPacking];
+
+        for (int i = 0; i < numberOfValuesAfterPacking; i++) {
+            finalPackedConsecutiveDuplicates[i] = packedConsecutiveDuplicates[i];
+        }
+
+        return finalPackedConsecutiveDuplicates;
     }
 
 }
