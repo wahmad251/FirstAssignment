@@ -334,7 +334,44 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        String lastString = "";
+        String[] noConsecutiveDuplicates;
+        int currentStoringIndex = 0;
+        int noConsecutiveDuplicateSize = 0;
+
+        // This first pass is to determine the final size of the return array
+        // that contains no consecutive duplicates.
+        //
+        // Instead of doing this, I could have created the return array first
+        // with the same size as the original and then remake another array
+        // with the same content but without the extra padding or space.
+        for (int i = 0; i < array.length; i++) {
+            if (!array[i].equals(lastString)) {
+                // noConsecutiveDuplicates[currentStoringIndex] = array[i];
+                // currentStoringIndex++;
+                lastString = array[i];
+                noConsecutiveDuplicateSize++;
+            }
+        }
+
+        // Now since the final return array size is determined,
+        // it can finally be initialized.
+        noConsecutiveDuplicates = new String[noConsecutiveDuplicateSize];
+
+        // Now we actually store the content into the return array
+        // by using the same logic above to determine which values
+        // are not consecutive duplicates.
+        for (int i = 0; i < array.length; i++) {
+            if (!array[i].equals(lastString)) {
+                noConsecutiveDuplicates[currentStoringIndex] = array[i];
+                currentStoringIndex++;
+                lastString = array[i];
+            }
+        }
+
+        System.out.println(noConsecutiveDuplicateSize);
+
+        return noConsecutiveDuplicates;
     }
 
     /**
